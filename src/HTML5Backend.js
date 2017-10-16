@@ -519,9 +519,9 @@ export default class HTML5Backend {
 		this.dragOverTargetIds.unshift(targetId)
 	}
 
-	handleTopDragOver(e) {
-		e.preventDefault()
-		this.latestEvent = e
+	handleTopDragOver(ev) {
+		ev.preventDefault()
+		this.latestEvent = ev
 		if (this.isHandlingDragOver) {
 			return
 		}
@@ -530,11 +530,12 @@ export default class HTML5Backend {
 		this.dragOverTargetIds = []
 
 		requestAnimationFrame(() => {
+			const e = this.latestEvent
 			if (!this.monitor.isDragging()) {
 				// This is probably a native item type we don't understand.
 				// Prevent default "drop and blow away the whole document" action.
-				e.preventDefault()
 				e.dataTransfer.dropEffect = 'none'
+				this.isHandlingDragOver = false
 				return
 			}
 
