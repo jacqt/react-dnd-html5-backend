@@ -531,7 +531,7 @@ export default class HTML5Backend {
 
 		requestAnimationFrame(() => {
 			const e = this.latestEvent
-			if (!this.monitor.isDragging()) {
+			if (!this.monitor.isDragging() || this.monitor.didDrop()) {
 				// This is probably a native item type we don't understand.
 				// Prevent default "drop and blow away the whole document" action.
 				e.dataTransfer.dropEffect = 'none'
