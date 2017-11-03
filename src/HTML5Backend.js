@@ -521,6 +521,13 @@ export default class HTML5Backend {
 
 	handleTopDragOver(ev) {
 		ev.preventDefault()
+    if (!ev.dataTransfer) {
+      try {
+        // Firefox won't drag without setting data
+        ev.dataTransfer.setData('application/json', {});
+      } catch (err) { }
+    }
+
 		this.latestEvent = ev
 		if (this.isHandlingDragOver) {
 			return
