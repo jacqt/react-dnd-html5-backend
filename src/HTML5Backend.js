@@ -548,9 +548,11 @@ export default class HTML5Backend {
 
 			this.altKeyPressed = e.altKey
 
-			this.actions.hover(dragOverTargetIds, {
-				clientOffset: getEventClientOffset(e),
-			})
+      try {
+        this.actions.hover(dragOverTargetIds, {
+          clientOffset: getEventClientOffset(e),
+        })
+      } catch (err) { }
 
 			const canDrop = dragOverTargetIds.some(targetId =>
 				this.monitor.canDropOnTarget(targetId),
